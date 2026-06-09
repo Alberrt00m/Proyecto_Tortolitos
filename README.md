@@ -10,6 +10,14 @@ Un juego de plataformas cooperativo en HTML5 donde ambos se deben de ayudar para
 - Plataformas móviles, obstaculos y sistemas en varios niveles
 - Trucos activados si escribes CHET en el teclado, pero no se lo digas a nadie
 
+## Características a futuro 
+
+- Mejora a los personajes (ahora seran Mia y Leo)
+- Mejora al fondo (decorado agradable a la vista)
+- Mejora en los niveles (plataformas de reinicio)
+- Sistema de puntos extras (no obligatorios para completar el nivel)
+- Más opciones en la barra de trucos 
+
 ## Información técnica
 
 - **Lenguaje**: JavaScript vanilla (sin frameworks externos)
