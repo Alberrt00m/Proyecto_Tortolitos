@@ -104,11 +104,11 @@ const canvas = document.getElementById('miCanvas');
           // Plataforma alta izquierda (objetivo rojo)
           { x: GROSOR_BORDE, y: 100, ancho: 140, alto: 18, color: '#000000' },
           // Plataforma alta derecha (objetivo azul)
-          { x: ANCHO_CANVAS - GROSOR_BORDE - 140, y: 80, ancho: 140, alto: 18, color: '#000000' },
+          { x: ANCHO_CANVAS - GROSOR_BORDE - 140, y: 100, ancho: 140, alto: 18, color: '#000000' },
           // Escalón subida izquierda
-          { x: GROSOR_BORDE, y: SUELO_Y - 160, ancho: 90, alto: 18, color: '#333333' },
+          { x: GROSOR_BORDE, y: SUELO_Y - 120, ancho: 150, alto: 18, color: '#333333' },
           // Escalón subida derecha
-          { x: ANCHO_CANVAS - GROSOR_BORDE - 90, y: SUELO_Y - 160, ancho: 90, alto: 18, color: '#333333' },
+          { x: ANCHO_CANVAS - GROSOR_BORDE - 120, y: SUELO_Y - 120, ancho: 140, alto: 18, color: '#333333' },
         ],
         plataformasMoviles: [
           // Islote izquierdo: controlado por botón DERECHO (cruzado)
@@ -155,8 +155,8 @@ const canvas = document.getElementById('miCanvas');
           },
         ],
         // Objetivos cruzados: rojo al alto izquierdo, azul al alto derecho
-        circuloRojo: { x: GROSOR_BORDE + 40,                  y: 240,  radio: 26, color: '#DC1C1C' },
-        circuloAzul: { x: ANCHO_CANVAS - GROSOR_BORDE - 70,   y: 240,  radio: 26, color: '#1C5EDC' },
+        circuloRojo: { x: GROSOR_BORDE + 40,                  y: 70,  radio: 26, color: '#DC1C1C' },
+        circuloAzul: { x: ANCHO_CANVAS - GROSOR_BORDE - 70,   y: 70,  radio: 26, color: '#1C5EDC' },
       },
 
 // nivel 5
