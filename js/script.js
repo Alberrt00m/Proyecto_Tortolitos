@@ -6,23 +6,33 @@ const canvas = document.getElementById('miCanvas');
     canvas.height = ALTO_CANVAS;
     const GROSOR_BORDE = 10;
 
-    // ─── IMAGEN MIA (jugador azul) ───────────────────────────────────────────
+    // Jugadores - Mia y Leo
     const imgMia = new Image();
     imgMia.src = 'Mia.png';
     let miaImagenLista = false;
     imgMia.onload = () => { miaImagenLista = true; };
 
-    // ─── IMAGEN LEO (jugador rojo) ───────────────────────────────────────────
     const imgLeo = new Image();
     imgLeo.src = 'Leo.png';
     let leoImagenLista = false;
     imgLeo.onload = () => { leoImagenLista = true; };
 
-    // ─── IMAGEN FONDO ────────────────────────────────────────────────────────
+    // Fondo
     const imgFondo = new Image();
     imgFondo.src = 'fondo.png';
     let fondoImagenLista = false;
     imgFondo.onload = () => { fondoImagenLista = true; };
+
+    // Puertas meta
+    const imgPuertaMia = new Image();
+    imgPuertaMia.src = 'puertamia.png';  // moño rosado → meta azul (Mia)
+    let puertaMiaLista = false;
+    imgPuertaMia.onload = () => { puertaMiaLista = true; };
+
+    const imgPuertaLeo = new Image();
+    imgPuertaLeo.src = 'puertaleo.png';  // moño amarillo → meta roja (Leo)
+    let puertaLeoLista = false;
+    imgPuertaLeo.onload = () => { puertaLeoLista = true; };
 
     const GRAVEDAD    = 0.5;
     const FUERZA_SALTO = -10;
@@ -39,15 +49,15 @@ const canvas = document.getElementById('miCanvas');
           { x: GROSOR_BORDE,           y: SUELO_Y - 280, ancho: 420, alto: 30, color: '#000000' },
         ],
         plataformasMoviles: [],
-        circuloRojo: { x: ANCHO_CANVAS - GROSOR_BORDE - 80, y: 300, radio: 28, color: '#DC1C1C' },
-        circuloAzul: { x: GROSOR_BORDE + 80,                y: 300, radio: 28, color: '#1C5EDC' },
+        circuloRojo: { x: ANCHO_CANVAS - GROSOR_BORDE - 80, y: 310, radio: 28, color: '#DC1C1C' },
+        circuloAzul: { x: GROSOR_BORDE + 80,                y: 310, radio: 28, color: '#1C5EDC' },
       },
 // nivel 2
       {
         plataformas: [
           // Dos pilares cortos al centro (fuerzan saltar)
-          { x: 310, y: SUELO_Y - 50,  ancho: 70,  alto: 50,  color: '#000000' },
-          { x: 450, y: SUELO_Y - 50,  ancho: 70,  alto: 50,  color: '#000000' },
+          { x: 310, y: SUELO_Y - 40,  ancho: 70,  alto: 40,  color: '#000000' },
+          { x: 450, y: SUELO_Y - 40,  ancho: 70,  alto: 40,  color: '#000000' },
           // Plataforma izquierda alta (objetivo azul encima)
           { x: GROSOR_BORDE, y: SUELO_Y - 220, ancho: 180, alto: 20, color: '#000000' },
           // Plataforma derecha alta (objetivo rojo encima)
@@ -60,13 +70,13 @@ const canvas = document.getElementById('miCanvas');
         // Plataforma móvil central: va de izquierda a derecha al medio-alto
         plataformasMoviles: [
           {
-            x: 340, y: 180, ancho: 120, alto: 18, color: '#555555',
-            vx: 2.2, vy: 0,
+            x: 340, y: 180, ancho: 120, alto: 20, color: '#555555',
+            vx: 3.0, vy: 0,
             limIzq: 180, limDer: 650
           }
         ],
-        circuloRojo: { x: ANCHO_CANVAS - GROSOR_BORDE - 90, y: SUELO_Y - 270, radio: 26, color: '#DC1C1C' },
-        circuloAzul: { x: GROSOR_BORDE + 90,                y: SUELO_Y - 270, radio: 26, color: '#1C5EDC' },
+        circuloRojo: { x: ANCHO_CANVAS - GROSOR_BORDE - 90, y: SUELO_Y - 245, radio: 26, color: '#DC1C1C' },
+        circuloAzul: { x: GROSOR_BORDE + 90,                y: SUELO_Y - 245, radio: 26, color: '#1C5EDC' },
       },
 
 // nivel 3
@@ -86,8 +96,8 @@ const canvas = document.getElementById('miCanvas');
           { x: GROSOR_BORDE + 550, y: SUELO_Y - 300, ancho: 70, alto: 18, color: '#333333' },
         ],
         plataformasMoviles: [],
-        circuloRojo: { x: GROSOR_BORDE + 60,                y: SUELO_Y - 240, radio: 26, color: '#DC1C1C' },
-        circuloAzul: { x: ANCHO_CANVAS - GROSOR_BORDE - 60, y: SUELO_Y - 240, radio: 26, color: '#1C5EDC' },
+        circuloRojo: { x: GROSOR_BORDE + 60,                y: SUELO_Y - 235, radio: 26, color: '#DC1C1C' },
+        circuloAzul: { x: ANCHO_CANVAS - GROSOR_BORDE - 60, y: SUELO_Y - 235, radio: 26, color: '#1C5EDC' },
         // Botón HOLD — activo SOLO mientras alguien lo pise
         botonSwitch: {
           x: 400, y: SUELO_Y - 115,
@@ -117,7 +127,7 @@ const canvas = document.getElementById('miCanvas');
 // nivel 4
       {
         plataformas: [
-          { x: 400, y: SUELO_Y - 270,  ancho: 40,  alto: 800,  color: '#000000' },
+          { x: 400, y: SUELO_Y - 270,  ancho: 40,  alto: 850,  color: '#000000' },
           // Suelo izquierdo
           { x: GROSOR_BORDE,  y: SUELO_Y, ancho: 1000, alto: 55, color: '#000000' },
           // Plataforma alta izquierda (objetivo rojo)
@@ -174,8 +184,8 @@ const canvas = document.getElementById('miCanvas');
           },
         ],
         // Objetivos cruzados: rojo al alto izquierdo, azul al alto derecho
-        circuloRojo: { x: GROSOR_BORDE + 40,                  y: 280,  radio: 26, color: '#DC1C1C' },
-        circuloAzul: { x: ANCHO_CANVAS - GROSOR_BORDE - 70,   y: 70,  radio: 26, color: '#1C5EDC' },
+        circuloRojo: { x: GROSOR_BORDE + 40,                  y: 290,  radio: 26, color: '#DC1C1C' },
+        circuloAzul: { x: ANCHO_CANVAS - GROSOR_BORDE - 70,   y: 80,  radio: 26, color: '#1C5EDC' },
       },
 
 // nivel 5
@@ -268,15 +278,15 @@ const canvas = document.getElementById('miCanvas');
     function crearCuadradoRojo() {
       return {
         x: GROSOR_BORDE, y: SUELO_Y,
-        ancho: 50, alto: 50,
+        ancho: 60, alto: 60,
         velocidad: 5, velocidadY: 0,
         enAire: false, color: '#DC1C1C'
       };
     }
     function crearCuadradoAzul() {
       return {
-        x: ANCHO_CANVAS - GROSOR_BORDE - 50, y: SUELO_Y,
-        ancho: 50, alto: 50,
+        x: ANCHO_CANVAS - GROSOR_BORDE - 60, y: SUELO_Y,
+        ancho: 60, alto: 60,
         velocidad: 5, velocidadY: 0,
         enAire: false, color: '#1C5EDC'
       };
@@ -715,15 +725,33 @@ const canvas = document.getElementById('miCanvas');
     }
 
     function dibujarCirculo(circ) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(circ.x, circ.y, circ.radio, 0, Math.PI * 2);
-      ctx.fillStyle = circ.color + '33';
-      ctx.fill();
-      ctx.strokeStyle = circ.color;
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.restore();
+      // Determinar qué puerta usar según el color del círculo
+      const esMeta = circ.color === '#1C5EDC';   // azul → puerta Mia (moño rosado)
+      const imgPuerta = esMeta ? imgPuertaMia : imgPuertaLeo;
+      const imagenLista = esMeta ? puertaMiaLista : puertaLeoLista;
+
+      // Las puertas se dibujan centradas en circ.x, circ.y
+      // El tamaño visual se escala a partir del radio (diámetro * 2 para dar margen)
+      const tamano = circ.radio * 3.2;
+      const dx = circ.x - tamano / 2;
+      const dy = circ.y - tamano * 0.85; // ancla en la parte baja de la puerta
+
+      if (imagenLista) {
+        ctx.save();
+        ctx.drawImage(imgPuerta, dx, dy, tamano, tamano * 1.15);
+        ctx.restore();
+      } else {
+        // Fallback: círculo de color mientras carga la imagen
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(circ.x, circ.y, circ.radio, 0, Math.PI * 2);
+        ctx.fillStyle = circ.color + '33';
+        ctx.fill();
+        ctx.strokeStyle = circ.color;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.restore();
+      }
     }
 
     function dibujarSombras() {
