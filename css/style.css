@@ -131,3 +131,61 @@
       from { opacity: 1; }
       to   { opacity: 0.4; }
     }
+
+    /* ─── CONTADORES DE ESTRELLAS ─────────────────────────────────────────── */
+    #contadores-estrellas {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .contador-bloque {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #222;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 5px 14px;
+      min-width: 110px;
+      justify-content: center;
+      transition: box-shadow 0.25s;
+    }
+
+    .contador-bloque.brilla-leo {
+      box-shadow: 0 0 14px 3px rgba(184, 160, 0, 0.65);
+    }
+
+    .contador-bloque.brilla-mia {
+      box-shadow: 0 0 14px 3px rgba(204, 95, 160, 0.65);
+    }
+
+    .estrella-icono {
+      font-size: 1.3rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    .contador-label {
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: #888;
+      text-transform: uppercase;
+    }
+
+    .contador-numero {
+      font-family: 'Courier New', monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #e8e8e8;
+      min-width: 22px;
+      text-align: center;
+      transition: transform 0.15s;
+    }
+
+    .contador-numero.pop {
+      transform: scale(1.45);
+    }
