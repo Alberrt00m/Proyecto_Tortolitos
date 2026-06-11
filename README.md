@@ -4,7 +4,7 @@ Un juego de plataformas cooperativo en HTML5 donde ambos deben ayudarse mutuamen
 
 ## Características actuales (10/06/2026)
 
-- Cinco niveles retadores para cooperar (Generacion de niveles automaticos pronto)
+- Cinco niveles retadores para cooperar 
 - Dos personajes jugables (Mia la coneja y Leo el perro)
 - Obstáculos con físicas, colisiones e interacciones con los jugadores
 - Recolecta los fragmentos de corazon de Leo y Mia en los 5 niveles
@@ -12,6 +12,7 @@ Un juego de plataformas cooperativo en HTML5 donde ambos deben ayudarse mutuamen
 
 ## Características a futuro 
 
+- Generacion de niveles automaticos (ya no mas niveles predeterminados)
 - Más opciones en la barra de trucos (incluyendo notas de desarrollo)
 
 ## Información técnica
