@@ -199,3 +199,12 @@
     .contador-numero.pop {
       transform: scale(1.45);
     }
+
+    /* ─── OVERLAY DE VIDEO ──────────────────────────────────────────────────── */
+    #overlay-video {
+      cursor: pointer;
+    }
+
+    #videoGalletas {
+      background: #000;
+    }

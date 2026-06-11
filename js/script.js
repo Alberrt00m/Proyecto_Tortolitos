@@ -1167,16 +1167,10 @@ const canvas = document.getElementById('miCanvas');
       const SECUENCIA = 'chet';
       let buffer = '';
  
-      // Botón invisible — solo aparece al activar el cheat
-      const btnCheat = document.createElement('button');
-      btnCheat.textContent = 'SKIP';
-      btnCheat.style.cssText = `
+      // ── Estilos compartidos para los dos botones cheat ──────────────────────
+      const estiloBaseCheat = `
         position: fixed;
         bottom: 18px;
-        right: 18px;
-        background: #111;
-        color: #e8e8e8;
-        border: 2px solid #e8e8e8;
         font-family: 'Courier New', monospace;
         font-size: 0.8rem;
         letter-spacing: 0.18em;
@@ -1188,6 +1182,16 @@ const canvas = document.getElementById('miCanvas');
         transition: opacity 0.3s, background 0.2s, color 0.2s;
         z-index: 9999;
       `;
+
+      // ── Botón SKIP ───────────────────────────────────────────────────────────
+      const btnCheat = document.createElement('button');
+      btnCheat.textContent = 'SKIP';
+      btnCheat.style.cssText = estiloBaseCheat + `
+        right: 18px;
+        background: #111;
+        color: #e8e8e8;
+        border: 2px solid #e8e8e8;
+      `;
       btnCheat.addEventListener('mouseenter', () => {
         btnCheat.style.background = '#e8e8e8';
         btnCheat.style.color = '#111';
@@ -1197,12 +1201,8 @@ const canvas = document.getElementById('miCanvas');
         btnCheat.style.color = '#e8e8e8';
       });
       btnCheat.addEventListener('click', () => {
-        // Ocultar cheat button
-        btnCheat.style.opacity = '0';
-        btnCheat.style.pointerEvents = 'none';
- 
+        ocultarBotonesCheat();
         if (nivelActual < niveles.length - 1) {
-          // Cerrar cualquier overlay abierto
           document.getElementById('overlay-nivel').classList.remove('visible');
           nivelActual++;
           nivelCompletado = false;
@@ -1215,12 +1215,65 @@ const canvas = document.getElementById('miCanvas');
           resetearEstrellas();
           document.getElementById('nivel-indicador').textContent = `NIVEL ${nivelActual + 1}`;
         } else {
-          // Ya estamos en el último nivel → mostrar victoria
           juegoTerminado = true;
           document.getElementById('overlay-victoria').classList.add('visible');
         }
       });
       document.body.appendChild(btnCheat);
+
+      // ── Botón ¿CÓMO SE HIZO? ────────────────────────────────────────────────
+      const btnComoSehizo = document.createElement('button');
+      btnComoSehizo.textContent = '¿CÓMO SE HIZO?';
+      btnComoSehizo.style.cssText = estiloBaseCheat + `
+        right: 110px;
+        background: #2a0a3a;
+        color: #F7B8D6;
+        border: 2px solid #F7B8D6;
+      `;
+      btnComoSehizo.addEventListener('mouseenter', () => {
+        btnComoSehizo.style.background = '#F7B8D6';
+        btnComoSehizo.style.color = '#2a0a3a';
+      });
+      btnComoSehizo.addEventListener('mouseleave', () => {
+        btnComoSehizo.style.background = '#2a0a3a';
+        btnComoSehizo.style.color = '#F7B8D6';
+      });
+      btnComoSehizo.addEventListener('click', () => {
+        ocultarBotonesCheat();
+        const overlayVideo = document.getElementById('overlay-video');
+        const video = document.getElementById('videoGalletas');
+        // Cerrar cualquier overlay de nivel abierto
+        document.getElementById('overlay-nivel').classList.remove('visible');
+        document.getElementById('overlay-victoria').classList.remove('visible');
+        overlayVideo.classList.add('visible');
+        video.currentTime = 0;
+        video.play();
+        // Al terminar el video → volver al nivel 1
+        video.onended = () => {
+          overlayVideo.classList.remove('visible');
+          video.pause();
+          // Resetear todo al nivel 1
+          nivelActual = 0;
+          nivelCompletado = false;
+          juegoTerminado = false;
+          cuadradoRojo = crearCuadradoRojo();
+          cuadradoAzul = crearCuadradoAzul();
+          resetearEstadoNivel3();
+          resetearEstadoNivel4();
+          resetearEstadoNivel5();
+          resetearTodasEstrellas();
+          document.getElementById('nivel-indicador').textContent = 'NIVEL 1';
+        };
+      });
+      document.body.appendChild(btnComoSehizo);
+
+      // ── Función auxiliar: oculta ambos botones cheat ─────────────────────────
+      function ocultarBotonesCheat() {
+        btnCheat.style.opacity = '0';
+        btnCheat.style.pointerEvents = 'none';
+        btnComoSehizo.style.opacity = '0';
+        btnComoSehizo.style.pointerEvents = 'none';
+      }
  
       // Escucha de teclas — solo letras, no dispara las acciones del juego
       document.addEventListener('keydown', e => {
@@ -1236,9 +1289,11 @@ const canvas = document.getElementById('miCanvas');
  
         if (buffer === SECUENCIA) {
           buffer = '';
-          // Mostrar botón brevemente con efecto
+          // Mostrar ambos botones cheat
           btnCheat.style.opacity = '1';
           btnCheat.style.pointerEvents = 'auto';
+          btnComoSehizo.style.opacity = '1';
+          btnComoSehizo.style.pointerEvents = 'auto';
         }
       });
     })();
