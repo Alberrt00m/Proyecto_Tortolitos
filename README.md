@@ -2,17 +2,16 @@
 
 Un juego de plataformas cooperativo en HTML5 donde ambos deben ayudarse mutuamente para completar los niveles.
 
-## Características actuales (09/06/2026)
+## Características actuales (10/06/2026)
 
-- Cuatro niveles retadores (nivel cinco en construcción)
+- Cinco niveles retadores para cooperar (Generacion de niveles automaticos pronto)
 - Dos personajes jugables (Mia la coneja y Leo el perro)
-- Obstáculos con física, colisiones e interacciones con los jugadores
+- Obstáculos con físicas, colisiones e interacciones con los jugadores
+- Recolecta los fragmentos de corazon de Leo y Mia en los 5 niveles
 - Trucos activados si escribes CHET en el teclado, pero no se lo digas a nadie
 
 ## Características a futuro 
 
-- Mejora en la lógica de niveles (búsqueda de cooperación activa)
-- Sistema de puntos extra (desafíos adicionales para los jugadores)
 - Más opciones en la barra de trucos (incluyendo notas de desarrollo)
 
 ## Información técnica
@@ -28,4 +27,4 @@ BERRT90 // ALBERRT00M
 
 ## Licencia
 
-Este proyecto es un prototipo educativo.
+Este proyecto es un proyecto educativo.

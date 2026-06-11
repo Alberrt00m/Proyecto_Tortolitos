@@ -5,7 +5,7 @@
     }
 
     body {
-      background-color: #1a1a1a;
+      background-color: #5F746B;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -14,16 +14,16 @@
       font-family: 'Courier New', monospace;
     }
     h1 {
-      color: #e8e8e8;
+      color: #F1E58E;
       font-size: 1.1rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       margin-bottom: 4px;
-      opacity: 0.75;
+      opacity: 0.92;
     }
 
     h4 {
-      color: #e8e8e8;
+      color: #CAE8F1;
       font-size: 1.1rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -32,18 +32,18 @@
     }
 
     #nivel-indicador {
-      color: #e8e8e8;
+      color: #F7B8D6;
       font-size: 0.85rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 10px;
-      opacity: 0.6;
+      opacity: 0.85;
       transition: opacity 0.3s;
     }
 
     #contenedor {
       position: relative;
-      box-shadow: 0 0 40px rgba(220, 30, 30, 0.18), 0 0 0 2px #333;
+      box-shadow: 0 0 40px rgba(191, 17, 76, 0.28), 0 0 0 2px #AB9C9A;
     }
 
     canvas {
@@ -54,7 +54,7 @@
 
     #instrucciones {
       margin-top: 18px;
-      color: #aaaaaa;
+      color: #CAE8F1;
       font-size: 0.82rem;
       letter-spacing: 0.08em;
       text-align: center;
@@ -63,11 +63,11 @@
 
     #instrucciones span {
       display: inline-block;
-      background: #2e2e2e;
-      border: 1px solid #444;
+      background: #5F746B;
+      border: 1px solid #AB9C9A;
       border-radius: 4px;
       padding: 1px 7px;
-      color: #e0e0e0;
+      color: #F1E58E;
       font-weight: bold;
       margin: 0 2px;
     }
@@ -78,7 +78,7 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.72);
+      background: rgba(95, 116, 107, 0.80);
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -90,18 +90,18 @@
     }
 
     .overlay-panel p {
-      color: #fff;
+      color: #F1E58E;
       font-family: 'Courier New', monospace;
       font-size: 2rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 10px;
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+      text-shadow: 0 0 20px rgba(241, 229, 142, 0.5);
       animation: parpadeo 0.8s infinite alternate;
     }
 
     .overlay-panel .sub {
-      color: #aaa;
+      color: #F7B8D6;
       font-size: 0.85rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -110,9 +110,9 @@
     }
 
     .overlay-panel button {
-      background: #222;
-      color: #e8e8e8;
-      border: 2px solid #e8e8e8;
+      background: #5F746B;
+      color: #F1E58E;
+      border: 2px solid #F1E58E;
       font-family: 'Courier New', monospace;
       font-size: 1rem;
       letter-spacing: 0.15em;
@@ -123,8 +123,8 @@
     }
 
     .overlay-panel button:hover {
-      background: #e8e8e8;
-      color: #222;
+      background: #F1E58E;
+      color: #5F746B;
     }
 
     @keyframes parpadeo {
@@ -145,8 +145,8 @@
       display: flex;
       align-items: center;
       gap: 7px;
-      background: #222;
-      border: 1px solid #3a3a3a;
+      background: #4a5e56;
+      border: 1px solid #AB9C9A;
       border-radius: 8px;
       padding: 5px 14px;
       min-width: 110px;
@@ -155,24 +155,34 @@
     }
 
     .contador-bloque.brilla-leo {
-      box-shadow: 0 0 14px 3px rgba(184, 160, 0, 0.65);
+      box-shadow: 0 0 14px 3px rgba(241, 229, 142, 0.70);
     }
 
     .contador-bloque.brilla-mia {
-      box-shadow: 0 0 14px 3px rgba(204, 95, 160, 0.65);
+      box-shadow: 0 0 14px 3px rgba(247, 184, 214, 0.70);
     }
 
-    .estrella-icono {
-      font-size: 1.3rem;
-      line-height: 1;
-      filter: drop-shadow(0 0 4px currentColor);
+    .gema-icono {
+      width: 2rem;
+      height: 2rem;
+      object-fit: contain;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+      transition: filter 0.25s;
+    }
+
+    .contador-bloque.brilla-leo .gema-icono {
+      filter: drop-shadow(0 0 8px rgba(241, 229, 142, 0.9));
+    }
+
+    .contador-bloque.brilla-mia .gema-icono {
+      filter: drop-shadow(0 0 8px rgba(247, 184, 214, 0.9));
     }
 
     .contador-label {
       font-family: 'Courier New', monospace;
       font-size: 0.78rem;
       letter-spacing: 0.18em;
-      color: #888;
+      color: #CAE8F1;
       text-transform: uppercase;
     }
 
@@ -180,7 +190,7 @@
       font-family: 'Courier New', monospace;
       font-size: 1.4rem;
       font-weight: bold;
-      color: #e8e8e8;
+      color: #F1E58E;
       min-width: 22px;
       text-align: center;
       transition: transform 0.15s;

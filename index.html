@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MANTENIMIENTO ACTIVO NO USAR</title>
+  <title>Mia & Leo - juego cooperativo</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -13,19 +13,23 @@
 
   <div id="contadores-estrellas">
     <div class="contador-bloque" id="bloque-leo">
-      <span class="estrella-icono" style="color:#b8a000;">★</span>
+      <img class="gema-icono" src="gemaleo.png" alt="Gema Leo" />
       <span class="contador-label">LEO</span>
       <span class="contador-numero" id="contador-leo">0</span>
     </div>
     <div class="contador-bloque" id="bloque-mia">
       <span class="contador-numero" id="contador-mia">0</span>
       <span class="contador-label">MIA</span>
-      <span class="estrella-icono" style="color:#cc5fa0;">★</span>
+      <img class="gema-icono" src="gemamia.png" alt="Gema Mia" />
     </div>
   </div>
 
   <div id="contenedor">
     <canvas id="miCanvas"></canvas>
+
+    <!-- Overlay: pantalla de inicio (transparente - el canvas maneja el click) -->
+    <div class="overlay-panel" id="overlay-intro" style="background: transparent; pointer-events: none;">
+    </div>
 
     <!-- Overlay: nivel completado (transición) -->
     <div class="overlay-panel" id="overlay-nivel">
