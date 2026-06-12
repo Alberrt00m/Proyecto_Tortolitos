@@ -50,6 +50,11 @@ const canvas = document.getElementById('miCanvas');
     let pisoImagenLista = false;
     imgPiso.onload = () => { pisoImagenLista = true; };
 
+    const imgPisoLat = new Image();
+    imgPisoLat.src = 'piso1.png';
+    let pisoLatImagenLista = false;
+    imgPisoLat.onload = () => { pisoLatImagenLista = true; };
+
     // ─── PANTALLA DE INTRO ────────────────────────────────────────────────────
     const imgIntro = new Image();
     imgIntro.src = 'intro.png';
@@ -60,7 +65,7 @@ const canvas = document.getElementById('miCanvas');
     let hoverBotonJugar = false;
 
     const GRAVEDAD    = 0.5;
-    const FUERZA_SALTO = -10;
+    const FUERZA_SALTO = -11;
     const SUELO_Y      = ALTO_CANVAS - GROSOR_BORDE - 55;
 
     // seccion de niveles (cantidad: 5)
@@ -86,8 +91,8 @@ const canvas = document.getElementById('miCanvas');
           { x: 520, y: SUELO_Y - 80,  ancho: 20,  alto: 80,  color: '#000000' },
           { x: 310, y: SUELO_Y - 40,  ancho: 70,  alto: 40,  color: '#000000' },
           { x: 450, y: SUELO_Y - 40,  ancho: 70,  alto: 40,  color: '#000000' },
-          { x: GROSOR_BORDE, y: SUELO_Y - 220, ancho: 180, alto: 20, color: '#000000' },
-          { x: ANCHO_CANVAS - GROSOR_BORDE - 180, y: SUELO_Y - 220, ancho: 180, alto: 20, color: '#000000' },
+          { x: GROSOR_BORDE, y: SUELO_Y - 220, ancho: 180, alto: 40, color: '#000000' },
+          { x: ANCHO_CANVAS - GROSOR_BORDE - 180, y: SUELO_Y - 220, ancho: 180, alto: 40, color: '#000000' },
         ],
         // Plataforma móvil central: va de izquierda a derecha al medio-alto
         plataformasMoviles: [
@@ -156,12 +161,10 @@ const canvas = document.getElementById('miCanvas');
 // nivel 4
       {
         plataformas: [
-          { x: 400, y: SUELO_Y - 45,  ancho: 50,  alto: 100,  color: '#000000' },
-          { x: 400, y: SUELO_Y - 105,  ancho: 50,  alto: 100,  color: '#000000' },
-          { x: 400, y: SUELO_Y - 166,  ancho: 50,  alto: 100,  color: '#000000' },
-          { x: 400, y: SUELO_Y - 227,  ancho: 50,  alto: 100,  color: '#000000' },
-          { x: 400, y: SUELO_Y - 280,  ancho: 50,  alto: 100,  color: '#000000' },
-          
+        
+        { x: 400, y: SUELO_Y - 290,  ancho: 50,  alto: 350,  color: '#000000' },
+        
+
           // Plataforma alta izquierda (objetivo rojo)
           { x: GROSOR_BORDE, y: 100, ancho: 190, alto: 40, color: '#000000' },
           // Plataforma alta derecha (objetivo azul)
@@ -227,9 +230,8 @@ const canvas = document.getElementById('miCanvas');
         plataformas: [
           { x: 540, y: SUELO_Y - 70, ancho: 50, alto: 140, color: '#000000' },
           { x: 210, y: SUELO_Y - 100, ancho: 380, alto: 50, color: '#000000' },
-          { x: 400, y: SUELO_Y - 330,  ancho: 50,  alto: 100,  color: '#000000' },
-          { x: 400, y: SUELO_Y - 390,  ancho: 50,  alto: 100,  color: '#000000' },
-          { x: 400, y: SUELO_Y - 450,  ancho: 50,  alto: 100,  color: '#000000' },
+          
+          { x: 400, y: SUELO_Y - 430,  ancho: 50,  alto: 180,  color: '#000000' },
         
           
           // Derecha medio-alta
@@ -403,7 +405,7 @@ const canvas = document.getElementById('miCanvas');
       return {
         x: GROSOR_BORDE, y: SUELO_Y,
         ancho: 60, alto: 60,
-        velocidad: 5, velocidadY: 0,
+        velocidad: 4, velocidadY: 0,
         enAire: false, color: '#DC1C1C'
       };
     }
@@ -411,7 +413,7 @@ const canvas = document.getElementById('miCanvas');
       return {
         x: ANCHO_CANVAS - GROSOR_BORDE - 60, y: SUELO_Y,
         ancho: 60, alto: 60,
-        velocidad: 5, velocidadY: 0,
+        velocidad: 4, velocidadY: 0,
         enAire: false, color: '#1C5EDC'
       };
     }
@@ -689,7 +691,12 @@ const canvas = document.getElementById('miCanvas');
 
       // — Verificar victoria —
       const { circuloRojo, circuloAzul } = nivel;
+      // Las puertas solo se consideran alcanzables si su estrella correspondiente
+      // fue recolectada (si el nivel no tiene esa estrella, la puerta no requiere nada extra)
+      const puertaRojaDesbloqueada = !nivel.estrellaRoja || nivel.estrellaRoja.recogida;
+      const puertaAzulDesbloqueada = !nivel.estrellaAzul || nivel.estrellaAzul.recogida;
       const ambosEnObjetivo =
+        puertaRojaDesbloqueada && puertaAzulDesbloqueada &&
         cuadradoDentroCirculo(cuadradoRojo, circuloRojo) &&
         cuadradoDentroCirculo(cuadradoAzul, circuloAzul);
 
@@ -873,6 +880,36 @@ const canvas = document.getElementById('miCanvas');
         const IMG_CONTENT_H = 114;  // alto del contenido real (cesped + tierra)
         const imgW = imgPiso.naturalWidth; // 1128
 
+        // Columnas/pilares verticales (alto mucho mayor que el ancho, ej. la
+        // plataforma divisoria central): si escalamos la textura usando
+        // plat.alto, la imagen se estira muchisimo y queda deforme, y el
+        // "cesped" visual termina por debajo de plat.y (de ahi que el
+        // personaje parezca flotar). En su lugar, dibujamos solo una tapa
+        // de cesped/tierra escalada según el ANCHO y rellenamos el resto
+        // del cuerpo con un color de tierra solido.
+        const esColumna = plat.alto > plat.ancho * 1.4;
+
+        if (esColumna) {
+          const escala        = plat.ancho / IMG_CONTENT_H;
+          const anchoEscalado = imgW * escala;
+          const altoEscalado  = IMG_TOTAL_H * escala;
+          const offsetY = plat.y - IMG_TOP_PAD * escala;
+
+          for (let drawX = plat.x; drawX < plat.x + plat.ancho; drawX += anchoEscalado) {
+            ctx.drawImage(imgPiso, drawX, offsetY, anchoEscalado, altoEscalado);
+          }
+
+          // Cuerpo de la columna debajo de la tapa de cesped
+          const cuerpoY = plat.y + plat.ancho;
+          if (cuerpoY < plat.y + plat.alto) {
+            ctx.fillStyle = '#5a4030';
+            ctx.fillRect(plat.x, cuerpoY, plat.ancho, (plat.y + plat.alto) - cuerpoY);
+          }
+
+          ctx.restore();
+          return;
+        }
+
         const escala        = plat.alto / IMG_CONTENT_H;
         const anchoEscalado = imgW * escala;
         const altoEscalado  = IMG_TOTAL_H * escala;
@@ -886,6 +923,7 @@ const canvas = document.getElementById('miCanvas');
         return;
       }
 
+      
       ctx.fillStyle = plat.color;
       ctx.fillRect(plat.x, plat.y, plat.ancho, plat.alto);
       if (esMovil) {
@@ -1078,9 +1116,14 @@ const canvas = document.getElementById('miCanvas');
       // Actualizar plataformas móviles (siempre, incluso en overlay, para que se vea el movimiento)
       actualizarPlataformasMoviles();
 
-      // Círculos objetivo
-      dibujarCirculo(nivel.circuloRojo);
-      dibujarCirculo(nivel.circuloAzul);
+      // Círculos objetivo (puertas) — permanecen ocultas/bloqueadas hasta
+      // que se recolecte la estrella correspondiente
+      if (!nivel.estrellaRoja || nivel.estrellaRoja.recogida) {
+        dibujarCirculo(nivel.circuloRojo);
+      }
+      if (!nivel.estrellaAzul || nivel.estrellaAzul.recogida) {
+        dibujarCirculo(nivel.circuloAzul);
+      }
 
       // Estrellas coleccionables
       if (nivel.estrellaRoja) dibujarEstrella(nivel.estrellaRoja, '#FFD700');
@@ -1330,4 +1373,38 @@ const canvas = document.getElementById('miCanvas');
       canvas.style.cursor = hoverBotonJugar ? 'pointer' : 'default';
     });
 
+    // ─── CONTROL DE MÚSICA ───────────────────────────────────────────────────
+    const audio      = document.getElementById('musicaFondo');
+    const btnMusica  = document.getElementById('btn-musica');
+    const iconoMusica = document.getElementById('icono-musica');
+    const textoMusica = document.getElementById('texto-musica');
+    let musicaActiva = true;
+
+    // Intentar reproducir al primer gesto del usuario (política de navegadores)
+    function iniciarMusica() {
+      if (musicaActiva) {
+        audio.play().catch(() => {});
+      }
+      document.removeEventListener('click', iniciarMusica);
+      document.removeEventListener('keydown', iniciarMusica);
+    }
+    document.addEventListener('click', iniciarMusica);
+    document.addEventListener('keydown', iniciarMusica);
+
+    btnMusica.addEventListener('click', (e) => {
+      e.stopPropagation(); // no dispara iniciarMusica de nuevo
+      musicaActiva = !musicaActiva;
+      if (musicaActiva) {
+        audio.play().catch(() => {});
+        btnMusica.classList.remove('musica-off');
+        iconoMusica.textContent = '♪';
+        textoMusica.textContent = 'MÚSICA ON';
+      } else {
+        audio.pause();
+        btnMusica.classList.add('musica-off');
+        iconoMusica.textContent = '✕';
+        textoMusica.textContent = 'MÚSICA OFF';
+      }
+    });
+    
     bucleDeJuego();

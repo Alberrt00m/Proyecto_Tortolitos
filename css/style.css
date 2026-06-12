@@ -132,6 +132,57 @@
       to   { opacity: 0.4; }
     }
 
+    /* ─── QR DE LA PÁGINA WEB (overlay victoria) ─────────────────────────────── */
+    #qr-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      margin-bottom: 24px;
+      animation: none;
+    }
+
+    #qr-marco {
+      background: #ffffff;
+      border: 4px solid #F1E58E;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 0 0 3px #5F746B, 0 0 18px 2px rgba(247, 184, 214, 0.55);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #qr-link:hover #qr-marco {
+      transform: scale(1.04);
+      box-shadow: 0 0 0 3px #5F746B, 0 0 26px 4px rgba(247, 184, 214, 0.85);
+    }
+
+    #qr-imagen {
+      display: block;
+      width: 140px;
+      height: 140px;
+    }
+
+    #qr-texto {
+      margin-top: 10px;
+      max-width: 320px;
+      color: #CAE8F1;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      text-align: center;
+      line-height: 1.6;
+      text-decoration: underline;
+      text-decoration-color: #F7B8D6;
+      transition: color 0.2s;
+      animation: none;
+    }
+
+    #qr-link:hover #qr-texto {
+      color: #F1E58E;
+    }
+
+
     /* ─── CONTADORES DE ESTRELLAS ─────────────────────────────────────────── */
     #contadores-estrellas {
       display: flex;
@@ -207,4 +258,72 @@
 
     #videoGalletas {
       background: #000;
+    }
+
+    /* ─── BOTÓN DE MÚSICA ───────────────────────────────────────────────────── */
+    #btn-musica {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #4a5e56;
+      color: #F1E58E;
+      border: 2px solid #F1E58E;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-radius: 6px;
+      z-index: 9999;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 10px rgba(241, 229, 142, 0.20);
+    }
+
+    #btn-musica:hover {
+      background: #F1E58E;
+      color: #4a5e56;
+      box-shadow: 0 0 16px rgba(241, 229, 142, 0.50);
+    }
+
+    #btn-musica.musica-off {
+      background: #3a4a44;
+      color: #AB9C9A;
+      border-color: #AB9C9A;
+      box-shadow: none;
+    }
+
+    #btn-musica.musica-off:hover {
+      background: #AB9C9A;
+      color: #3a4a44;
+    }
+
+    #icono-musica {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    #btn-repo {
+      position: fixed;
+      bottom: 70px;
+      left: 18px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #4a5e56;
+      color: #F1E58E;
+      border: 2px solid #F1E58E;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-radius: 6px;
+      z-index: 9999;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 10px rgba(241, 229, 142, 0.20);
     }
